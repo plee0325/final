@@ -37,7 +37,7 @@ text(typed, width/2, height/2); // the text that has been typed
 
 function keyTyped(){
   
-if(key == text1[typed.length]){ // if the key is correct, it will add to the typed array
+if(key == text1[typed.length] && w == 0){ // if the key is correct, it will add to the typed array
 typed += key;
 whi = 255;
   
@@ -48,10 +48,10 @@ whi = 100;
 mistyped += key;
 
 }
-if (key == text1[typed.length] && w >= 0.1){ // makes sure that after a letter was mistyped, that the mistyped array will continue even if the next letters are correct
-mistyped += key;
+// if (key == text1[typed.length] && w >= 0.1){ // makes sure that after a letter was mistyped, that the mistyped array will continue even if the next letters are correct
+// mistyped += key;
   
-}
+// }
 }
 
 
@@ -65,3 +65,4 @@ function keyReleased(){
   mistyped = mistyped.substring(0, mistyped.length - 1);
   }
 }
+
