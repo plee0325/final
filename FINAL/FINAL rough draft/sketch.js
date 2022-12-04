@@ -13,6 +13,7 @@ createCanvas(windowWidth, windowHeight);
 
 function draw(){
 
+
 background(whi);
 rectMode(CENTER);
 noStroke();
@@ -21,7 +22,7 @@ w = textWidth(mistyped);
 rect(width/2 - w/2,height/2,w,50); // highlight the incorrect letters
   
 fill(bla);
-textSize(10);
+textSize(12);
 textAlign(CENTER);
 text(text1, width/2, height/5); // the prompt text
   
@@ -31,8 +32,15 @@ fill(36,194,255);
 text(typed, width/2, height/2); // the text that has been typed
 
 // print(w);
-
-
+  if(frameCount % 60 < 30 && w < 1){
+fill(0);
+rect(width/2, height/2 - 10, 2.5, 30, 10); // the marker for where the typing takes place will blink when nothing is written
+  } 
+if(textWidth(typed) > 0){
+fill(0);
+rect(width/2, height/2 - 10, 2.5, 30, 10); // the marker will stop blinking when something is typed
+  
+}
 }
 
 function keyTyped(){
@@ -66,3 +74,7 @@ function keyReleased(){
   }
 }
 
+
+
+// I'm struggling with the game aspects - making a menu, making a score
+// making it so that you can lose to a robot, making a clinking sound when typing.
