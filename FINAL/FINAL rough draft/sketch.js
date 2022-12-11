@@ -13,9 +13,9 @@ let b = 0; // both a and b are for round three; random variables that will make 
 let c = 0;
 let tickeR;
 let congrats = "";
-// function preload(){
-//   click = loadSound('clicked.wav')
-// }
+function preload(){
+  click = loadSound('clicked.wav')
+}
 function setup(){
   createCanvas(windowWidth, windowHeight);  
   textFont('georgia');
@@ -55,13 +55,13 @@ function keyTyped(){
   if(key == text1[typed.length] && w == 0){ // if the key is correct, it will add to the typed array
     typed += key;
     whi = 255;
-// click.play();
+click.play();
   }else{ // if the key is incorrect, it will add to the mistyped array
     typed += key; 
     whi = 100;
     mistyped += key;
     wrongscore += 1;
-// click.play();
+click.play();
   }
 }
 
@@ -86,7 +86,7 @@ textSize(30);
 textAlign(CENTER);
 text("THE TYPING GAME", width/2, height/3);
 textSize(25);
-text("Click here to play!", width/2, height/3 + 40);
+text("Enter fullscreen and click here to play!", width/2, height/3 + 40);
   
   if (mouseIsPressed == true){
     currentPage = currentPage + 1;
@@ -209,7 +209,7 @@ if(frameCount % 60 < 25){
 textSize(30);
 fill(255,194,36);
 text(rTyped, width/2, height/2 + 100); 
-  if(frameCount % 10 == 5){ // The speed is even faster
+  if(frameCount % 15 == 8){ // The speed is even faster
     rTyped += text1[rTyped.length]
   }
 }
@@ -258,7 +258,7 @@ w = textWidth(mistyped);
 rect(width/2 - w/2,height/2,w,50);  // highlight the incorrect letters
   
 fill(bla);
-textSize(12);
+textSize(20);
 textAlign(CENTER);
 text(text1, width/2 + a, height/5 + a); // the prompt text
   
