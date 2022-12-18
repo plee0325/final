@@ -13,9 +13,12 @@ let b = 0; // both a and b are for round three; random variables that will make 
 let c = 0;
 let tickeR;
 let congrats = "";
-function preload(){
-  click = loadSound('clicked.wav')
-}
+
+// function preload(){
+//   click = loadSound('clicked.wav')
+//   error = loadSound('error.wav')
+// }
+
 function setup(){
   createCanvas(windowWidth, windowHeight);  
   textFont('georgia');
@@ -37,38 +40,44 @@ function draw(){
     roundThree(); // screen will start to shake 
   }
   if(currentPage == 4){
-    roundFour(); 
+    roundFour(); // screen will start to flicker and shake harder
   }
   if(currentPage == 5){
-    roundFive();
+    roundFive(); // even harder shaking and rapid flickering
   }
   if(currentPage == 6){
-    gameWon();
+    gameWon(); //congrats~
   }
-  if(wrongscore >= 60 || c == 1){
-    gameOver();
+  if(wrongscore >= 60 || c == 1){ // c is the variable I set so that when the robot's string matches the string of the prompt, it will equal to 1 and the game will end.
+    gameOver(); // try again
   }
 }
 
 function keyTyped(){
-  
-  if(key == text1[typed.length] && w == 0){ // if the key is correct, it will add to the typed array
-    typed += key;
-    whi = 255;
-click.play();
-  }else{ // if the key is incorrect, it will add to the mistyped array
-    typed += key; 
-    whi = 100;
-    mistyped += key;
-    wrongscore += 1;
-click.play();
+ 
+if(currentPage > 0 ){ // makes it so that you can't type in the start page
+  if(keyCode != RETURN && keyCode != ENTER){
+    if(key == text1[typed.length] && w == 0){ // if the key is correct, it will add to the typed array
+      typed += key;
+      whi = 255;
+  // click.play();
+    }else{ // if the key is incorrect, it will add to the mistyped array
+     typed += key; 
+     whi = 100;
+     mistyped += key;
+     wrongscore += 1;
+      // click.play();
+      // error.play();
   }
+}
+}
 }
 
 function keyReleased(){
   if (keyCode == BACKSPACE){
     typed = typed.substring(0, typed.length - 1); //when clicking backspace, the typed string will decrease
     whi = 255;
+    // click.play();
   }
   if (keyCode == BACKSPACE && w >= 1){ //when clicking backspace while there are mistyped letters, the mistyped string will decrease
     mistyped = mistyped.substring(0, mistyped.length - 1);
@@ -98,9 +107,9 @@ function roundOne(){
   
   background(whi);
   fill(bla);
-  textSize(20);
+  textSize(40);
 textAlign(CENTER);
-text(text0, width/2, height/6); // Instructions to type the prompt
+text(text0, width/2, height/8); // Instructions to type the prompt
   
   text1 = "This is a typing test. You must type without making too many mistakes. Each level will get harder with new challenges. Good luck.";
   
@@ -114,10 +123,15 @@ function roundTwo(){
 
 typMechs();
   
-  textAlign(RIGHT);
-textSize(30);
+//  fill(bla);
+// textSize(20);
+// textAlign(CENTER);
+// text(text1, width/2 + a, height/5 + a); // the prompt text
+  
+textAlign(LEFT);
+textSize(20);
 fill(255,194,36);
-text(rTyped, width/2, height/2 + 100); 
+text(rTyped, width/2 - (textWidth(text1))/2, height/5 + 50); 
   if(frameCount % 30 == 15){ // during these frames, the robot will add a letter to it's string.
     rTyped += text1[rTyped.length]
   }
@@ -143,10 +157,10 @@ background(whi);
   
 typMechs(); 
   
-  textAlign(RIGHT);
-textSize(30);
+  textAlign(LEFT);
+textSize(20);
 fill(255,194,36);
-text(rTyped, width/2, height/2 + 100); 
+text(rTyped, width/2 - (textWidth(text1))/2, height/5 + 50); 
   if(frameCount % 25 == 12){ // during these frames, the robot will add a letter to it's string.
     rTyped += text1[rTyped.length]
   }
@@ -160,7 +174,7 @@ background(whi);
 if(frameCount % 60 < 20){
   background(bla);
 }
-  text1 = "Oh no! The lights! They're flickering and the earthquake is getting even stronger! Don't stop typing though! Stay strong and you'll be able to overcome anything that comes in your way!";
+  text1 = "Oh no! The lights! They're flickering and the earthquake is getting even stronger! Don't stop typing though!";
 
    if(frameCount % 6 < 3){
     a = -2;
@@ -175,10 +189,10 @@ if(frameCount % 60 < 20){
   
  typMechs();
   
-  textAlign(RIGHT);
-textSize(30);
+textAlign(LEFT);
+textSize(20);
 fill(255,194,36);
-text(rTyped, width/2, height/2 + 100); 
+text(rTyped, width/2 - (textWidth(text1))/2, height/5 + 50); 
   if(frameCount % 20 == 10){ // The speed is even faster
     rTyped += text1[rTyped.length]
   }
@@ -205,10 +219,10 @@ if(frameCount % 60 < 25){
   
  typMechs();
   
-  textAlign(RIGHT);
-textSize(30);
+textAlign(LEFT);
+textSize(20);
 fill(255,194,36);
-text(rTyped, width/2, height/2 + 100); 
+text(rTyped, width/2 - (textWidth(text1))/2, height/5 + 50); 
   if(frameCount % 15 == 8){ // The speed is even faster
     rTyped += text1[rTyped.length]
   }
@@ -223,7 +237,7 @@ fill(whi);
 textAlign(CENTER);
 textSize(25);
   text("Click here try again.", width/2, height/3 + 40);
-  if(wrongscore == 60){
+  if(wrongscore >= 60){
     fill(whi);
     textAlign(CENTER);
     textSize(30);
@@ -248,7 +262,7 @@ textSize(25);
   
 }
 
-function typMechs(){
+function typMechs(){ // the mechanics for how the typing works 
   
   rectMode(CENTER);
 textSize(30);
@@ -266,6 +280,13 @@ textAlign(RIGHT);
 textSize(30);
 fill(36,194,255);
 text(typed, width/2, height/2); // the text that has been typed
+  
+
+fill(bla);
+textSize(20);
+textAlign(LEFT);
+fill(36,194,255);
+text(typed, width/2 - (textWidth(text1))/2, height/5 + a); // text that overlapps the prompt text
 
 // print(w);
   if(frameCount % 60 < 30 && w < 1){
@@ -299,7 +320,7 @@ fill(bla);
 textAlign(CENTER);
 textSize(50);
   text(congrats, width/2, height/2 - 100);
-  if(frameCount % 6 == 3 && congrats.length < "Congratulations! You've won!".length ){ // The speed is even faster
+  if(frameCount % 6 == 3 && congrats.length < "Congratulations! You've won!".length ){ 
     congrats += "Congratulations! You've won!"[congrats.length];
   }
   if(congrats.length == "Congratulations! You've won!".length){
@@ -348,12 +369,6 @@ class Ticker{
   text('Mistakes: ' + wrongscore + '/60', 100, height - 100)
   }
 }
-// I'm struggling with the game aspects - making a menu, making a score
-// making it so that you can lose to a robot
-
-//maybe make it so that each level, something new pops up. Like the screen starts shaking
-// or maybe the screen goes black for a little bit so you can't see what you're typing. 
-// or the text flashes for a bit and you have to memorize it after the fact. 
 
 
 // update: I'm starting to add the new levels with new challenges, would like to add sounds to the earthquake and the lights flickering.
